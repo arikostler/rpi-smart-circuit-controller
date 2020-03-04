@@ -1,20 +1,43 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
-  <link href="bootstrap-4.4.1-dist/css/bootstrap.css" rel="stylesheet">
-  <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="bootstrap-4.4.1-dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 
-  <title>Express</title>
+    <title>Smart-Circuit Controller</title>
 </head>
 <body>
-<h1>Express</h1>
-<p>Welcome to Express</p>
+<div class="container border rounded border-info">
+    <div class="row">
+        <div class="col text-center">
+            <h3>Smart-Circuit Controller</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <b>Light</b>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="light" onclick="switchClick(this.id)">
+                <label class="custom-control-label" for="light"></label>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center">
+            <b>Fan</b>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="fan" onclick="switchClick(this.id)">
+                <label class="custom-control-label" for="fan"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="js/jquery-3.4.1.js"></script>
 <script src="bootstrap-4.4.1-dist/js/bootstrap.bundle.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
