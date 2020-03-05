@@ -12,25 +12,37 @@
     <link rel="shortcut icon" href="images/rpi-icon.png">
 </head>
 <body>
-<div class="container border rounded border-info">
-    <div class="row">
+<div class="container">
+    <div class="row border border-info rounded-top">
         <div class="col text-center">
-            <h3>Smart-Circuit Controller</h3>
+            <h3>Smart Circuit Control</h3>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 text-center">
-            <b>Light</b>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="light" onclick="switchClick(this.id)">
-                <label class="custom-control-label" for="light"></label>
+    <div class="row border border-info rounded-bottom border-top-0" style="padding-top: 20px; padding-bottom: 10px;">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-6 text-right">
+                    <h3>Light</h3>
+                </div>
+                <div class="col-6">
+                    <label class="switch" for="light">
+                        <input type="checkbox" id="light" onclick="switchClick(this.id)">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6 text-center">
-            <b>Fan</b>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="fan" onclick="switchClick(this.id)">
-                <label class="custom-control-label" for="fan"></label>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-6 text-right">
+                    <h3>Fan</h3>
+                </div>
+                <div class="col-6">
+                    <label class="switch" for="fan">
+                        <input type="checkbox" id="fan" onclick="switchClick(this.id)">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>

@@ -16,6 +16,8 @@ let switches = [
     }
 ];
 
+let poll_info = {lastChange: Date.now()};
+
 setupPins(switches).then(r => {
     console.log('GPIO pins initialized!');
 }).catch(err => {
@@ -44,12 +46,17 @@ router.post('/switch', async function (req, res, next) {
     for (let i = 0; i < switches.length; i++) {
         if (switches[i].id == req.body.id) {
             switches[i].state = req.body.state == 'true';
+            poll_info.lastChange = Date.now();
             await setPin(switches[i].pin, switches[i].state);
             i = switches.length;
         }
     }
     switches = await updatePinStates(switches);
     await res.json(switches);
+});
+
+router.get('/lastChange', async function (req, res, next) {
+    await res.json(poll_info);
 });
 
 async function setPin(pin_num, pin_state) {

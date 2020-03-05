@@ -1,8 +1,18 @@
 let switches = [];
+let polling_task = null;
+let poll_info = {lastChange: 0};
 
 $(async function () {
     await getPhysicalSwitches();
     updateAllWebSwitches();
+    polling_task = setInterval(async function () {
+        let data = await $.getJSON('/api/lastChange');
+        if (poll_info.lastChange !== data.lastChange) {
+            await getPhysicalSwitches();
+            updateAllWebSwitches();
+            poll_info = data;
+        }
+    }, 1000);
 });
 
 function switchClick(html_id) {
