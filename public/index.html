@@ -8,14 +8,36 @@
     <link href="bootstrap-4.4.1-dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
 
-    <title>Smart Circuit Control</title>
+    <title>RPi Dashboard</title>
     <link rel="shortcut icon" href="images/rpi-icon.png">
 </head>
 <body>
 <div class="container">
     <div class="row border border-info rounded-top">
         <div class="col text-center">
-            <h3>Smart Circuit Control</h3>
+            <h3>RPi Dashboard</h3>
+        </div>
+    </div>
+    <div class="row border border-info border-top-0 border-bottom-0" style="padding-top: 20px; padding-bottom: 10px;">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-6 text-right">
+                    <h3>Temp</h3>
+                </div>
+                <div class="col-6">
+                    <h3><span id="temp"></span>&#176;F</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-6 text-right">
+                    <h3>Humidity</h3>
+                </div>
+                <div class="col-6">
+                    <h3><span id="humid"></span>&#37;</h3>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row border border-info rounded-bottom border-top-0" style="padding-top: 20px; padding-bottom: 10px;">

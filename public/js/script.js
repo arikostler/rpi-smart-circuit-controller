@@ -1,18 +1,32 @@
 let switches = [];
 let polling_task = null;
 let poll_info = {lastChange: 0};
+let weather_task = null;
 
 $(async function () {
     await getPhysicalSwitches();
     updateAllWebSwitches();
+
+    await updateWeatherDisplay();
     polling_task = setInterval(async function () {
-        let data = await $.getJSON('/api/lastChange');
-        if (poll_info.lastChange !== data.lastChange) {
-            await getPhysicalSwitches();
-            updateAllWebSwitches();
-            poll_info = data;
+        try {
+            let data = await $.getJSON('/api/lastChange');
+            if (poll_info.lastChange !== data.lastChange) {
+                await getPhysicalSwitches();
+                updateAllWebSwitches();
+                poll_info = data;
+            }
+        } catch (e) {
+            console.error('Could not poll server to check for updates! Is the server down?', e);
         }
-    }, 1000);
+    }, 2000);
+    weather_task = setInterval(async function () {
+        try {
+            await updateWeatherDisplay();
+        } catch (e) {
+            console.error('Could not poll server to check for updates! Is the server down?', e);
+        }
+    }, 15000);
 });
 
 function switchClick(html_id) {
@@ -62,4 +76,20 @@ function updateAllWebSwitches() {
     for (let i = 0; i < switches.length; i++) {
         updateWebSwitch(switches[i].name, switches[i].state);
     }
+}
+
+async function getDhtSensorData() {
+    try {
+        let json = await $.getJSON('/api/dht');
+        json.ftemperature = (json.temperature * (9 / 5)) + 32;
+        return json;
+    } catch (e) {
+        console.error('Could not retrieve Temperature/Humidity data!', e);
+    }
+}
+
+async function updateWeatherDisplay() {
+    let data = await getDhtSensorData();
+    $('#humid').text(data.humidity);
+    $('#temp').text(data.ftemperature.toFixed(1));
 }

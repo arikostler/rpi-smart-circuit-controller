@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const gpio = require('rpi-gpio').promise;
+const dht = require('node-dht-sensor').promises;
 
 let switches = [
     {
@@ -22,6 +23,16 @@ setupPins(switches).then(r => {
     console.log('GPIO pins initialized!');
 }).catch(err => {
     console.error(err);
+});
+
+router.get('/dht', async function (req, res, next) {
+    try {
+        let ret = await dht_read();
+        await res.json(ret);
+    } catch (e) {
+        console.error("Could not serve dht data to client. Telling client we have no DHT sensor for now...", e);
+        await res.json({sensorType: 'none'});
+    }
 });
 
 router.get('/switch', async function (req, res, next) {
@@ -79,6 +90,17 @@ async function updatePinStates(arr) {
 
 async function getPinState(pin) {
     return await gpio.read(pin);
+}
+
+async function dht_read() {
+    try {
+        //fixme cache sensor data to avoid excess server load
+        let data = await dht.read(11, 4);
+        data.sensorType = 'DHT11';
+        return data;
+    } catch (err) {
+        console.error("Failed to read sensor data:", err);
+    }
 }
 
 
