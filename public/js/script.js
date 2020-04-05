@@ -6,8 +6,7 @@ let weather_task = null;
 $(async function () {
     await getPhysicalSwitches();
     updateAllWebSwitches();
-
-    await updateWeatherDisplay();
+    // await updateWeatherDisplay();
     polling_task = setInterval(async function () {
         try {
             let data = await $.getJSON('/api/lastChange');
@@ -20,13 +19,13 @@ $(async function () {
             console.error('Could not poll server to check for updates! Is the server down?', e);
         }
     }, 2000);
-    weather_task = setInterval(async function () {
-        try {
-            await updateWeatherDisplay();
-        } catch (e) {
-            console.error('Could not poll server to check for updates! Is the server down?', e);
-        }
-    }, 15000);
+    // weather_task = setInterval(async function () {
+    //     try {
+    //         await updateWeatherDisplay();
+    //     } catch (e) {
+    //         console.error('Could not poll server to check for updates! Is the server down?', e);
+    //     }
+    // }, 15000);
 });
 
 function switchClick(html_id) {
